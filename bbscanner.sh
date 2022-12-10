@@ -4,17 +4,17 @@ with_nessus=$2
 username=$3
 password=$4
 
-#mkdir $domain.monascanner
+mkdir $domain.monascanner
 
-#subfinder -d $domain -o $domain.monascanner/subdomains1
+subfinder -d $domain -o $domain.monascanner/subdomains1
 if [ $with_nesus="nessus" ]; then
 echo "nesus working"
 a=$(pwd)
-#python3 nessus4mona.py -u $username -p $password -sn $domain  -sf $a/$domain.monascanner/subdomains1
+python3 nessus4mona.py -u $username -p $password -sn $domain  -sf $a/$domain.monascanner/subdomains1
 
 fi
 echo "nesus finish"
-#cat $domain.monascanner/subdomains1 |waybackurls >$domain.monascanner/waybackdata1
+cat $domain.monascanner/subdomains1 |waybackurls >$domain.monascanner/waybackdata1
 echo "wayback finish"
 cat $domain.monascanner/subdomains1| httpx >$domain.monascanner/httpx
 echo "httpx finish"
@@ -24,16 +24,16 @@ echo "katana finish"
 cat $domain.monascanner/waybackdata1 | sort -u > $domain.monascanner/waybacksorted
 
 echo "waybacksorted"
-cat $domain.monascanner/waybacksorted|gf ssrf >gfcikti
-cat $domain.monascanner/waybacksorted|gf rce >> gfcikti
-cat $domain.monascanner/waybacksorted|gf redirect >> gfcikti
-cat $domain.monascanner/waybacksorted|gf sqli >> gfcikti
-cat $domain.monascanner/waybacksorted|gf lfi >> gfcikti
-cat $domain.monascanner/waybacksorted|gf ssti >> gfcikti
-cat $domain.monascanner/waybacksorted|gf xss >> gfcikti
+cat $domain.monascanner/waybacksorted|gf ssrf >$domain.monascanner/gfcikti
+cat $domain.monascanner/waybacksorted|gf rce >> $domain.monascanner/gfcikti
+cat $domain.monascanner/waybacksorted|gf redirect >> $domain.monascanner/gfcikti
+cat $domain.monascanner/waybacksorted|gf sqli >> $domain.monascanner/gfcikti
+cat $domain.monascanner/waybacksorted|gf lfi >> $domain.monascanner/gfcikti
+cat $domain.monascanner/waybacksorted|gf ssti >> $domain.monascanner/gfcikti
+cat $domain.monascanner/waybacksorted|gf xss >> $domain.monascanner/gfcikti
 echo "gf end "
-cat gfcikti|sort -u > gfciktison
+cat $domain.monascanner/gfcikti|sort -u > $domain.monascanner/gfciktison
 echo "burp suite integration "
-cat gfcikti | parallel -j 10 "curl --proxy http://127.0.0.1:8080 -sk > /dev/null"
+cat $domain.monascanner/gfcikti | parallel -j 10 "curl --proxy http://127.0.0.1:8080 -sk > /dev/null"
 
-nuclei -l httpx.$domain -as -sa
+nuclei -l $domain.monascanner/httpx.$domain -as -sa
