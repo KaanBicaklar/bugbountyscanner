@@ -4,6 +4,7 @@ with_nessus=$3
 username=$4
 password=$5
 proxy=$2
+echo 'usage: ./bbscanner.sh "domain.com" "http://burpadres:8080" nessus username password'
 mkdir $domain.monascanner
 subfinder -d $domain -o $domain.monascanner/subdomains1
 #assetfinder -subs-only $domain  >> $domain.monascanner/subdomains1 
