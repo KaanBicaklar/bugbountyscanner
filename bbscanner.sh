@@ -4,7 +4,6 @@ with_nessus=$3
 username=$4
 password=$5
 proxy=$2
-echo "usage: ./bbscanner.sh 'domain.com' 'http://127.0.0.1:8080' nessus username  password   "
 mkdir $domain.monascanner
 subfinder -d $domain -o $domain.monascanner/subdomains1
 #assetfinder -subs-only $domain  >> $domain.monascanner/subdomains1 
@@ -20,7 +19,7 @@ fi
 echo "nesus finish"
 
 echo "subdomains httpx begin"
-cat $domain.monascanner/subdomains| httpx >$domain.monascanner/httpx
+cat $domain.monascanner/subdomains| httprobe >$domain.monascanner/httpx
 echo "subdomains httpx end"
 echo "nuclei begin"
 nuclei -l $domain.monascanner/httpx -as  -p $proxy -o $domain.monascanner/nucleihttpxas
@@ -57,3 +56,6 @@ sort -u $domain.monascanner/replacedgf > $domain.monascanner/realfinalgf
 
 echo "burp suite integration "
 cat $domain.monascanner/realfinalgf | parallel -j 5 "curl --proxy $proxy -sk > /dev/null"
+
+
+
