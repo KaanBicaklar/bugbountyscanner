@@ -39,7 +39,7 @@ log_in=browser.find_element(by=By.XPATH, value='/html/body/div/form/button')
 log_in.click()
 
 
-time.sleep(5)
+time.sleep(10)
 
 #alertoff=browser.find_element(by=By.XPATH, value='/html/body/section[1]/div/div[2]/i[2]')
 #alertoff.click()
@@ -47,7 +47,7 @@ time.sleep(5)
 
 new_scan=browser.find_element(by=By.XPATH, value='/html/body/section[3]/section[1]/a[1]')
 new_scan.click()
-sleep(3)
+sleep(10)
 
 webtest=browser.find_element(by=By.XPATH, value='/html/body/section[3]/section[3]/section/div[1]/div[2]/div[2]/a[6]')
 webtest.click()
@@ -57,22 +57,22 @@ webtest.click()
 name=wait.until(ec.visibility_of_element_located((By.XPATH, '/html/body/section[3]/section[3]/section/form/div[1]/div/div/div[1]/section/div[1]/div[1]/div[1]/div[1]/div/input')))
 name.send_keys(scanname)
 
-sleep(5)
+sleep(10)
 
 upload_ele=browser.find_element(by=By.XPATH, value='//*[@id="editor-tab-view"]/div/div[1]/section/div[1]/div[1]/div[1]/div[6]/div/input')
 
 upload_ele.send_keys(filename)
 
-sleep(5)
+sleep(10)
 
 
 
 dropmenu=browser.find_element(by=By.XPATH, value='/html/body/section[3]/section[3]/section/form/div[2]/i')
 dropmenu.click()
 
-sleep(5)
+sleep(10)
 launch=browser.find_element(by=By.XPATH, value='/html/body/section[3]/section[3]/section/form/div[2]/ul/li')
 launch.click()
-sleep(5)
+sleep(10)
 
 browser.close()
